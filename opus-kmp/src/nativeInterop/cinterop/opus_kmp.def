@@ -1,0 +1,13 @@
+headers = opus_kmp_all.h
+compilerOpts = -std=c11
+# Opus's floating-point CELT/SILK code calls libm. Linux's older Kotlin/Native
+# sysroot keeps the math functions in libm as well.
+linkerOpts.linux_x64 = -lm
+linkerOpts.linux_arm64 = -lm
+linkerOpts.mingw_x64 = -lm
+linkerOpts.macos_x64 = -lm
+linkerOpts.macos_arm64 = -lm
+linkerOpts.android_arm64 = -lm
+linkerOpts.android_arm32 = -lm
+linkerOpts.android_x64 = -lm
+linkerOpts.android_x86 = -lm
