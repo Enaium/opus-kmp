@@ -12,7 +12,7 @@ semantics. The portable floating-point build with runtime CPU dispatch disabled
 is used everywhere: one code path across x86, ARM, Android, MinGW and
 WebAssembly.
 
-Binding version: **1.5.2.1** (Opus 1.5.2).
+Binding version: **1.0.1-fixed.1.5.2** (Opus 1.5.2).
 
 ## Supported targets
 
@@ -42,7 +42,7 @@ JavaScript/TypeScript web apps. Stage it with
 
 ```kotlin
 dependencies {
-    implementation("cn.enaium.opus:opus-kmp:1.5.2.1")
+    implementation("cn.enaium.opus:opus-kmp:1.0.1-fixed.1.5.2")
 }
 ```
 
@@ -224,8 +224,10 @@ repository secrets:
 | `SIGNING_KEY` / `SIGNING_KEY_ID` / `SIGNING_PASSWORD` | PGP signing key, base64-encoded binary ring |
 | `NPM_PUBLISH_KEY` | npm token for `@enaium/opus-kmp` |
 
-npm only accepts three-component semver. The fourth component of the binding
-version is published as a prerelease suffix: `1.5.2.1` becomes npm `1.5.2-1`.
+npm requires semver. A four-component binding version is published with its
+fourth component as a prerelease suffix (`1.5.2.1` becomes npm `1.5.2-1`); a
+version that is already valid semver, such as `1.0.1-fixed.1.5.2`, is published
+unchanged.
 
 ## License
 

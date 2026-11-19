@@ -583,14 +583,16 @@ if (hostJniProjectName != null) {
 // and Kotlin/Wasm consumers use the Maven artifact instead: there the same glue
 // and module bytes are embedded into the klib, so no asset lookup is needed.
 //
-// npm only accepts three-component semver. The root version (1.5.2.1) carries
-// this library's own revision in the fourth component, so it becomes the
-// prerelease suffix (1.5.2-1).
+// npm requires semver. A four-component binding version (1.5.2.1) carries this
+// library's own revision in the fourth component, so it becomes the prerelease
+// suffix (1.5.2-1). Versions that are already valid semver, such as
+// 1.0.1-fixed.1.5.2, are published unchanged.
+val fourPartVersion = Regex("""^(\d+)\.(\d+)\.(\d+)\.(\d+)$""")
 val npmPackageVersion: String by lazy {
-    val parts = rootProject.version.toString().split('.')
-    val base = parts.take(3).joinToString(".")
-    val revision = parts.drop(3).joinToString(".")
-    if (revision.isEmpty()) base else "$base-$revision"
+    val version = rootProject.version.toString()
+    val match = fourPartVersion.matchEntire(version) ?: return@lazy version
+    val (major, minor, patch, revision) = match.destructured
+    "$major.$minor.$patch-$revision"
 }
 
 val wasmNpmDir = layout.buildDirectory.dir("npm").get().asFile
