@@ -3,6 +3,12 @@ name: Publish
 
 "on":
   workflow_dispatch:
+    inputs:
+      publish_npm:
+        description: "Publish @enaium/opus-kmp to npm after Maven Central"
+        required: false
+        default: true
+        type: boolean
 
 # Maven Central coordinates are immutable, so each JNI artifact and each native
 # target klib is published from exactly one runner:
@@ -188,6 +194,7 @@ jobs:
   # other Maven coordinates are published first, then @enaium/opus-kmp.
   publish-npm:
     name: Publish @enaium/opus-kmp npm package
+    if: ${{ inputs.publish_npm }}
     needs: [publish-macos, publish-linux, publish-windows]
     runs-on: ubuntu-latest
     steps:

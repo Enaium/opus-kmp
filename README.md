@@ -215,7 +215,8 @@ cmake --build build-wasm --target opus_wasm
 `.github/workflows/ci.yml` publishes every host artifact to Maven Local, runs
 the JVM/native/web tests and builds the visual example headlessly.
 `.github/workflows/release.yml` releases to Maven Central from three runners
-(macOS, Linux, Windows) and then publishes the npm package. It needs these
+(macOS, Linux, Windows) and then publishes the npm package. Disable the npm job
+with `publish_npm=false` when publishing npm from a local Gradle instead. It needs these
 repository secrets:
 
 | Secret | Purpose |
